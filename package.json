@@ -1,0 +1,23 @@
+{
+  "name": "",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/svelte": "^7.1.0",
+    "@tailwindcss/vite": "^4.1.11",
+    "@threlte/core": "^8.1.3",
+    "@threlte/extras": "^9.4.2",
+    "@types/three": "^0.178.1",
+    "astro": "^5.12.3",
+    "svelte": "^5.36.17",
+    "tailwindcss": "^4.1.11",
+    "three": "^0.178.0",
+    "typescript": "^5.8.3"
+  }
+}
