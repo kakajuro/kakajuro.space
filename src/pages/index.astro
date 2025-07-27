@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
-import SvelteStuff from "@components/SvelteStuff.svelte";
+
+import MusicCanvas from "@components/MusicCanvas.svelte";
 ---
 
 <html lang="en">
@@ -11,8 +12,9 @@ import SvelteStuff from "@components/SvelteStuff.svelte";
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
 	</head>
-	<body class="bg-gray-800 w-screen h-screen">
-    <SvelteStuff client:load />
+	<body class="bg-gray-800">
+    <h1 class="text-white z-10">Yo</h1>
+    <MusicCanvas client:load />
 	</body>
 </html>
 

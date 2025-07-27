@@ -2,54 +2,33 @@
   import { T, useTask } from '@threlte/core'
   import { interactivity, OrbitControls, Grid, Stars, HTML } from '@threlte/extras'
   import { Spring } from 'svelte/motion'
-  import { Vector3 } from 'three'
 
-  import type { PerspectiveCamera } from 'three'
+  import { focusOnSphere } from './helpers.svelte';
+
+  import { cameraRef,
+           orbitControlsRef,
+           rotation,
+           incrementRotation,
+           setCameraRef,
+           setOrbitControlsRef } from '../SceneState.svelte';
+
+  import Bubble from './Bubble.svelte';
 
   interactivity()
 
   const scale = new Spring(1);
-  const zoomDiff = 100;
 
-  let cameraRef:PerspectiveCamera | undefined = $state();
-  let orbitControlsRef: any = $state();
-
-  let rotation = $state(0);
   let color = $state("blue");
   useTask((delta) => {
-    rotation += delta
+    incrementRotation(delta);
   });
-
-  let focusOnSphere = (spherePosition: [number, number, number]) => {
-    if (cameraRef && orbitControlsRef) {
-      const [x, y, z] = spherePosition;
-
-      // Calculate a good camera position (offset from the sphere)
-      const offset = 10;
-      const cameraPosition = new Vector3(x + offset, y + 10, z + offset);
-
-      // Move camera to new position
-      cameraRef.position.copy(cameraPosition);
-
-      // Update OrbitControls target to the sphere
-      orbitControlsRef.target.set(x, y, z);
-
-      // Make the camera look at the sphere
-      cameraRef.lookAt(x, y, z);
-
-      // Update the controls
-      orbitControlsRef.update();
-
-      console.log(`Focused on sphere at (${x}, ${y}, ${z})`);
-    }
-  }
 </script>
 
 <T.PerspectiveCamera
   makeDefault
   position={[10, 10, 0]}
   oncreate={(ref) => {
-    cameraRef = ref;
+    setCameraRef(ref);
     ref.lookAt(0, 0, 0)
   }}
   fov={70}
@@ -59,7 +38,7 @@
     autoRotate
     maxDistance={300}
     oncreate={(ref) => {
-      orbitControlsRef = ref;
+      setOrbitControlsRef(ref);
     }}
   />
 </T.PerspectiveCamera>
@@ -67,7 +46,7 @@
 <T.DirectionalLight position={[5, 1, 1]} />
 
 <T.Mesh
-  rotation.y={rotation}
+  rotation.y={rotation.value}
   position.y={1}
   scale={scale.current}
   onpointerenter={() => {
@@ -80,7 +59,7 @@
   }}
   onclick={() => {
     color = "red";
-    focusOnSphere([0, 1, 0]);
+    focusOnSphere([0, 1, 0], cameraRef, orbitControlsRef);
   }}
 >
   <T.SphereGeometry args={[1, 64, 32]} />
@@ -99,7 +78,7 @@
 </T.Mesh>
 
 <T.Mesh
-  rotation.y={rotation}
+  rotation.y={rotation.value}
   position.x={5}
   position.y={1}
   position.z={1}
@@ -114,7 +93,7 @@
   }}
   onclick={() => {
     color = "red";
-    focusOnSphere([5, 1, 1]);
+    focusOnSphere([5, 1, 1], cameraRef, orbitControlsRef);
   }}
 >
   <T.SphereGeometry args={[1, 64, 32]} />
@@ -127,6 +106,8 @@
   cellColor="#dddddd"
   cellSize={2}
 /> -->
+
+<Bubble />
 
 <Stars
   radius={100}
