@@ -1,8 +1,10 @@
 import { Vector3 } from 'three'
 
-import type { cameraRefT, orbitControlsT } from 'src/types';
+import { setFocus, focus } from '@components/SceneState.svelte';
 
-export let focusOnSphere = (spherePosition: [number, number, number], cameraRef:cameraRefT, orbitControlsRef:orbitControlsT) => {
+import type { cameraRefT, orbitControlsT, focusT } from 'src/types';
+
+export let focusOnSphere = (spherePosition: [number, number, number], meshObject:focusT['mesh'], cameraRef:cameraRefT, orbitControlsRef:orbitControlsT) => {
   if (cameraRef.value && orbitControlsRef.value) {
     const [x, y, z] = spherePosition;
 
@@ -12,11 +14,12 @@ export let focusOnSphere = (spherePosition: [number, number, number], cameraRef:
     cameraRef.value!.position.copy(cameraPosition);
 
     orbitControlsRef.value!.target.set(x, y, z);
-    orbitControlsRef
 
     cameraRef.value!.lookAt(x, y, z);
 
-    orbitControlsRef.value!.update();
+    orbitControlsRef.value!.update(0.5);
+
+    setFocus([x, y, z], meshObject);
 
     console.log(`Focused on sphere at (${x}, ${y}, ${z})`);
   }
