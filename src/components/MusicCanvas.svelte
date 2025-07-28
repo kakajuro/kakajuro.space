@@ -3,6 +3,8 @@
     import Scene from './threlte/Scene.svelte';
 </script>
 
-<Canvas class="w-screen h-screen fixed pointer-events-none">
-  <Scene />
-</Canvas>
+<div class="w-screen h-screen">
+  <Canvas class="w-screen h-screen absolute pointer-events-none">
+    <Scene />
+  </Canvas>
+</div>

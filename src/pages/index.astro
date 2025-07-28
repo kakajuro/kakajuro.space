@@ -2,6 +2,7 @@
 import "../styles/global.css";
 
 import MusicCanvas from "@components/MusicCanvas.svelte";
+import MusicInfo from "@components/MusicInfo.svelte";
 ---
 
 <html lang="en">
@@ -12,10 +13,28 @@ import MusicCanvas from "@components/MusicCanvas.svelte";
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
 	</head>
-	<body class="bg-gray-800">
-    <h1 class="text-white z-10">Yo</h1>
-    <MusicCanvas client:load />
+	<body class="bg-gray-900">
+    <div class="music-info-container">
+      <MusicInfo client:load />
+    </div>
+    <div class="music-canvas-container">
+      <MusicCanvas client:load />
+    </div>
 	</body>
 </html>
 
+<style>
+    .music-info-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      pointer-events: none;
+  }
 
+  .music-canvas-container {
+    position: relative;
+    z-index: 1;
+  }
+</style>

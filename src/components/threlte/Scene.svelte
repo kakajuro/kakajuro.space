@@ -1,11 +1,8 @@
 <script lang="ts">
   import { T, useTask } from '@threlte/core'
-  import { interactivity, OrbitControls, Grid, Stars, HTML } from '@threlte/extras'
+  import { interactivity, OrbitControls, Stars } from '@threlte/extras'
 
-  import { cameraRef,
-           orbitControlsRef,
-           rotation,
-           incrementRotation,
+  import { incrementRotation,
            setCameraRef,
            setOrbitControlsRef } from '../SceneState.svelte';
 
@@ -39,22 +36,18 @@
 
 <T.DirectionalLight position={[5, 1, 1]} />
 
-<!-- <Grid
-  sectionThickness={0}
-  infiniteGrid
-  cellColor="#dddddd"
-  cellSize={2}
-/> -->
-
 <Bubble
+  slug="album1"
   position={[0, 1, 0]}
 />
 
 <Bubble
+  slug="album2"
   position={[5, 1, 1]}
 />
 
 <Bubble
+  slug="album3"
   position={[0, 6, 0]}
 />
 

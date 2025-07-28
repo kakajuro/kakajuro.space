@@ -1,11 +1,11 @@
 <script lang="ts">
-  let { position }: {
-    position: [x:number, y:number, z:number]
+  let { position, slug }: {
+    position: [x:number, y:number, z:number],
+    slug: string
   } = $props();
 
   import { Mesh } from 'three'
   import { T } from '@threlte/core'
-  import { HTML } from '@threlte/extras'
   import { Spring } from 'svelte/motion'
 
   import { cameraRef, orbitControlsRef, rotation, focus } from '@components/SceneState.svelte';
@@ -51,15 +51,4 @@
 >
   <T.SphereGeometry args={[1, 64, 32]} />
   <T.MeshBasicMaterial color={colour}/>
-  <HTML
-    position.y={1}
-    pointerEvents="none"
-    autoRender={true}
-  >
-    <p
-      class="w-32 translate-x-1/2 text-lg text-red-500"
-    >
-      SOME TEXT HERE FOR TESTING
-    </p>
-  </HTML>
 </T.Mesh>
